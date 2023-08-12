@@ -1,23 +1,26 @@
 <script>
     import '../app.css'
-    $:tasks = ['first', 'second', 'third']
+
+    import { tasks } from '../data/stores.js'
+
     let inputVal = ""
+    let tasksArr = $tasks
 
     function createTask(){
         if (!inputVal) return;
-        for (let i = 0;i<tasks.length;i++){
-            if(tasks[i] === inputVal) {
+        for (let i = 0;i<tasksArr.length;i++){
+            if(tasksArr[i] === inputVal) {
                 inputVal = "";
                 window.alert("Hey, you already have that on your list, silly!")
                 return
             }
         }
-        tasks = [...tasks, inputVal]
+        tasksArr = [...tasksArr, inputVal]
         inputVal = "";
     }
 
     function deleteTask(index){
-        tasks = tasks.filter((task) => task !== tasks[index]);
+        tasksArr = tasksArr.filter((task) => task !== tasksArr[index]);
     }
 </script>
 
@@ -32,7 +35,7 @@
         </label>
     </form>
     <ul>
-        {#each tasks as task, index}
+        {#each tasksArr as task, index}
             <li>
                 <label for="">
                     <input type="text" bind:value={task} name="" id="" class="bg-transparent" key={index}>
