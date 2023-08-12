@@ -5,6 +5,7 @@
 
     let inputVal = ""
     let tasksArr = $tasks
+    let checked = false
 
     function createTask(){
         if (!inputVal) return;
@@ -22,6 +23,10 @@
     function deleteTask(index){
         tasksArr = tasksArr.filter((task) => task !== tasksArr[index]);
     }
+
+    function completeTask(){
+        console.log("Ping");
+    }
 </script>
 
 <!-- Todo: create new todo, read existing, update, delete -->
@@ -38,7 +43,10 @@
         {#each tasksArr as task, index}
             <li>
                 <label for="">
-                    <input type="text" bind:value={task} name="" id="" class="bg-transparent" key={index}>
+                    <input type="checkbox" checked={false} name="" id="" on:click={(e) => {
+                    document.querySelector(`#task-${index}`).classList.toggle("line-through");
+                    }}>
+                    <input type="text" bind:value={task} name="" id={`task-${index}`} class="bg-transparent" key={index}>
                 </label>
                 <button on:click={() => {
                     deleteTask(index)
